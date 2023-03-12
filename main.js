@@ -1,7 +1,7 @@
 const fs = require("fs");
 
 class ProductManager {
-  constructor(products = [], path) {
+  constructor(path, products = []) {
     this.products = products;
     this.path = path;
   }
@@ -75,7 +75,7 @@ class ProductManager {
     this.products = await this.checkForFileAndReturnProducts();
     const checkForID = this.products.findIndex((product) => product.id === id);
 
-    if (objWithIdIndex > -1) {
+    if (checkForID > -1) {
       this.products.splice(checkForID, 1);
       await fs.writeFileSync(this.path, JSON.stringify(this.products));
       return this.products;
@@ -124,7 +124,7 @@ newSess.addProduct(
 );
 
 console.log("Lista de productos productos agregados:");
-console.log(newSess.getProducts);
+console.log(newSess.getProducts());
 
 //tratar de agregar producto, pero con código repetido
 newSess.addProduct(
@@ -148,7 +148,7 @@ let prodUpdate = {
 };
 
 console.log("Lista de productos después de actualizar el título del primero:");
-console.log(newSess.getProducts);
+console.log(newSess.getProducts());
 //obtener producto por id - correcto e incorrecto
 newSess.getProductById(1);
 newSess.getProductById(7);
@@ -157,4 +157,4 @@ newSess.getProductById(7);
 newSess.deleteProduct(1);
 
 console.log("Lista de productos después de eliminar el primero:");
-console.log(newSess.getProducts);
+console.log(newSess.getProducts());
